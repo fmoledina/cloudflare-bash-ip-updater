@@ -1,12 +1,14 @@
 #!/bin/bash
 
+# USAGE: update_ip.sh www.example.com
+
 auth_email="" #Account email
 zone_identifier="" #Log in to Cloudflare, select domain, copy "Zone ID" from Overview
 auth_key="" #Below "Zone ID", click "Get your API key" and copy the global key
-record_name="" #example.com
+record_name=$1
 ip=$(curl -s v4.ident.me)
 ipSix=$(curl -s v6.ident.me)
-log_file="/var/log/update_ip.log"
+log_file="/var/log/update_ip_$record_name.log"
 log() {
     if [ "$1" ]; then
         echo -e "[$(date)] - $1" >> $log_file
